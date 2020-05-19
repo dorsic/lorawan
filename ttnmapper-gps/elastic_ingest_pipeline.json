@@ -1,0 +1,15 @@
+PUT /_ingest/pipeline/ttn_gateway_location
+{
+    "description" : "Creates geo_point location from latitude and longitude.",
+    "processors" : [
+      {
+        "set" : {
+          "field" : "metadata.gateway.location",
+          "value" : "{{_source.metadata.gateways.0.longitude}}, {{_source.metadata.gateways.0.latitude}}",
+          "ignore_failure": true
+        }
+      }
+    ]
+  }
+  
+  # use <elastic URL>/<index name>/_doc?pipeline=ttn_gateway_location as the URL of the endpoint of HTTP integration
